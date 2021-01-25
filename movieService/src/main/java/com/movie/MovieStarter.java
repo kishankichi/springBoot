@@ -8,6 +8,6 @@ public class MovieStarter {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MovieStarter.class, args);
-		System.out.println("=======MovieService Started==========");
+		System.out.println("=======MovieService Started=============");
 	}
 }
