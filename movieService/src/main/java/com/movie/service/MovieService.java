@@ -37,4 +37,13 @@ public class MovieService {
 	public void addMovie(MovieEntity entity) {
 		crudRepositry.save(entity);
 	}
+
+	public void deleteMovie(MovieEntity entity) {
+		crudRepositry.delete(entity);
+	}
+
+	public void deleteAll() {
+		crudRepositry.deleteAll();
+	}
+
 }

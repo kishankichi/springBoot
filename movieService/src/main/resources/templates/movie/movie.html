@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Bootstrap 4 Dark Table</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -18,32 +14,162 @@
 .bs-example {
 	margin: 20px;
 }
+
+<
+style>body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
 </style>
 </head>
-
 <body>
+
+	<div id="addModal" class="modal">
+		<div class="modal-content">
+			<span class="close" id="addClosebtn">&times;</span>
+			<form action="/add" method="post">
+				<div class="container">
+					<h1>Add Movie</h1>
+					<hr>
+					<label for="MovieName"><b>Movie Name</b></label> <input type="text"
+						placeholder="Movie Name" name="MovieName" id="MovieName" required>
+					<label for="movieLanguage"><b>Language</b></label> <input
+						type="text" placeholder="Movie language" name="MovieLanguage"
+						id="MovieLanguage" required> <label for="cast"><b>cast</b></label>
+					<input type="text" placeholder="Movie cast" name="cast" id="cast"
+						required> <label for="link"><b>Link</b></label> <input
+						type="text" placeholder="Movie link" name="link" id="link"
+						required>
+					<hr>
+					<button type="submit" class="registerbtn">Add Movie</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div id="deleteModal" class="modal">
+		<div class="modal-content">
+			<span class="close" id="deleteClosebtn">&times;</span>
+			<form action="/delete" method="post">
+				<div class="container">
+					<hr>
+					<label for="id"><b>Movie Id</b></label> <input type="text"
+						placeholder="Movie id" name="id" id="id" required>
+					<hr>
+					<button type="submit" class="registerbtn">ok</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
 	<div class="bs-example">
-		<h1>Movie Table</h1>
+		<h1>Movie List</h1>
 		<div class="row col-md-7 table-responsive">
 			<table id="customerTable" class="table table-dark">
 				<thead>
 					<tr>
+
+						<th><a id="addBtn" class="registerbtn">add</a></th>
+						<th><a id="deleteBtn" class="registerbtn">delete</a></th>
+					</tr>
+					<tr>
+						<th>Movie Id</th>
 						<th>Name</th>
 						<th>Language</th>
 						<th>Cast</th>
+						<th>Movie Link</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="movie, rowStat: ${movies}"
 						th:style="${rowStat.odd} ? 'color: gray' : 'color: blue;'">
+						<td th:text="${movie.id}"></td>
 						<td th:text="${movie.movieName}"></td>
 						<td th:text="${movie.language}"></td>
 						<td th:text="${movie.cast}"></td>
-						<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+						<td th:text="${movie.movieLink}"></td>
+						<script
+							src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 					</tr>
 				</tbody>
 			</table>
-			
+
 		</div>
 	</div>
+
+
+	<script>
+		var modal = document.getElementById("addModal");
+		var btn = document.getElementById("addBtn");
+		var span = document.getElementById("addClosebtn");
+
+		var deletemodal = document.getElementById("deleteModal");
+		var deletebtn = document.getElementById("deleteBtn");
+		var span_delete = document.getElementById("deleteClosebtn");
+
+		btn.onclick = function() {
+			modal.style.display = "block";
+		}
+
+		deletebtn.onclick = function() {
+			deletemodal.style.display = "block";
+		}
+
+		span.onclick = function() {
+			modal.style.display = "none";
+		}
+
+		span_delete.onclick = function() {
+			deletemodal.style.display = "none";
+		}
+
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+			if (event.target == deletemodal) {
+				modal.style.display = "none";
+			}
+		}
+	</script>
+
+</body>
+</html>
